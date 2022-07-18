@@ -1,0 +1,9 @@
+<?php
+
+$config = [
+	'sportsdb' => [
+		'endpoints' => [
+			
+		]
+	]
+];
