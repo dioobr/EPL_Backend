@@ -1,14 +1,22 @@
 <?php
 
 header("content-type: application/json; charset=utf-8");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST");
-header("Access-Control-Allow-Headers: X-Requested-With");
 
 define('basedir', dirname(__FILE__));
 define('ds', DIRECTORY_SEPARATOR);
 
 require_once(basedir.ds.'global.php');
+
+$http_origin = rtrim(ikex($_SERVER, 'HTTP_ORIGIN', ""), '/');
+if(!empty($http_origin)){
+	$pur = parse_url($http_origin);
+	$host = ikex($pur, 'host');
+	if(!empty($host) && (!empty($config['allowed_origins']) && in_array($host, $config['allowed_origins']))){
+		header("Access-Control-Allow-Origin: ".$http_origin);
+	}
+}
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Headers: X-Requested-With");
 
 $api = new api();
 $api->require_https();

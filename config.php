@@ -16,5 +16,9 @@ $config = [
 			]
 		]
 	],
-	'cache_dir' => basedir.ds.'cache'
+	'cache_dir' => basedir.ds.'cache',
+	'allowed_origins' => [
+		'localhost',
+		'epl.dioobr.com'
+	]
 ];
