@@ -2,3 +2,4 @@
 .nova
 log/*
 ssl/*
+cache/*

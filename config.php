@@ -15,5 +15,6 @@ $config = [
 				'url' => "https://www.thesportsdb.com/api/v1/json/{api_key}/lookupteam.php?id={team_id}"
 			]
 		]
-	]
+	],
+	'cache_dir' => basedir.ds.'cache'
 ];

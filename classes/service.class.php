@@ -30,6 +30,7 @@ class service {
 			
 		$events = [];
 		$fks = [
+			'idEvent',
 			'dateEvent',
 			'strVenue',
 			'strHomeTeam',
@@ -59,7 +60,6 @@ class service {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -68,10 +68,10 @@ class service {
 		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 		
-		if($error > 0) return api::state('error', "Something is wrong.");
+		if($error > 0) return api::state('error', "Failed to process request.", null, null, 500);
 		
 		$shr = @json_decode($sh, true);
-		if(empty($shr) || !is_array($shr)) return api::state('error', "Something is wrong. Invalid response data.");
+		if(empty($shr) || !is_array($shr)) return api::state('error', "Failed to process request. Invalid response data.", null, null, 500);
 		
 		return api::state('ok', "Processed successfully.", null, $shr);
 	}
