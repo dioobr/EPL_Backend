@@ -5,8 +5,8 @@ This backend project was developed by [Diogo Braga](mailto:the@dioobr.com "Diogo
 
 ### Online Demo
 
-If you just want to see it working, you can check on the address https://api.epl.dioobr.com.
-The frontend is also available on the address https://epl.dioobr.com.
+If you just want to see it working, you can check in the address https://api.epl.dioobr.com.
+The frontend is also available in the address https://epl.dioobr.com.
 
 ### Requirements
 
