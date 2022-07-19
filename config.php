@@ -1,11 +1,11 @@
 <?php
 
 $config = [
-	'ignore_https_availability' => false,
+	'ignore_https_availability' => false, //if you want to accept requests without SSL, set TRUE on this parameter;
 	'sportsdb' => [
 		'pms' => [
-			'api_key' => "50130162",
-			'league_id' => "4328"
+			'api_key' => "50130162", //The API Key to process special requests on the TheSportsDB.com service;
+			'league_id' => "4328" //The League ID to query data about events and teams;
 		],
 		'endpoints' => [
 			'eventspastleague' => [
@@ -16,8 +16,8 @@ $config = [
 			]
 		]
 	],
-	'cache_dir' => basedir.ds.'cache',
-	'allowed_origins' => [
+	'cache_dir' => basedir.ds.'cache', //the cache dir is used to store teams badges;
+	'allowed_origins' => [ //set here what origins are allowed to make requests to this API;
 		'localhost',
 		'epl.dioobr.com'
 	]

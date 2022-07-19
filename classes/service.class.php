@@ -1,7 +1,15 @@
 <?php
 
+/*
+ * This class is used to process requests with TheSportsDB.com service API;
+*/
+
 class service {
 	
+	/*
+	 * This method requests a team information;
+	 * It was created to get the team badge picture that is provided by the service API;
+	*/
 	public function get_team(int $id){
 		$sr = $this->request('lookupteam', ['team_id' => $id]);
 		if($sr['state'] == 'error') return api::state($sr);
@@ -11,6 +19,9 @@ class service {
 		return api::state('ok', "Team found successfully.", null, $team);
 	}
 	
+	/*
+	 * Uses the "get_team" method and extract the team badge;
+	*/	
 	public function get_team_badge(int $id){
 		$team = $this->get_team($id);
 		if($team['state'] == 'error') return api::state($team);
@@ -23,6 +34,9 @@ class service {
 		return api::state('ok', "Found successfully.", null, $badge);
 	}
 	
+	/*
+	 * This method request past events provided by TheSportsDB.com service and extract some parameters that will be used by our API;
+	*/		
 	public function get_past_events(){
 		$sr = $this->request('eventspastleague');
 		if($sr['state'] == 'error') return api::state($sr);
@@ -49,10 +63,15 @@ class service {
 		return api::state('ok', "Processed successfully.", null, $events);
 	}
 	
-	private function request($endpoint, $adpms = []){
+	/*
+	 * This method requests the TheSportsDB.com service;
+	 * The value of the $endpoint var needs to be one that is specified on the config file;
+	 * If URL of the TheSportsDB.com uses dynamic parameters, for example, {some-id}, you can use the $adpms argument;
+	*/
+	private function request(string $endpoint, array $adpms = []){
 		global $config;
 		$sdb = $config['sportsdb'];
-		if(!array_key_exists($endpoint, $sdb['endpoints'])) return api::state('error', "Invalid endpoint.");
+		if(!array_key_exists($endpoint, $sdb['endpoints'])) return api::state('error', "Invalid endpoint.", '206', null, 500);
 		$ept = $sdb['endpoints'][$endpoint];
 		$url = $ept['url'];
 		foreach(array_merge($sdb['pms'], $adpms) as $pn => $pv) $url = str_replace('{'.$pn.'}', $pv, $url);
@@ -68,10 +87,11 @@ class service {
 		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 		
-		if($error > 0) return api::state('error', "Failed to process request.", null, null, 500);
+		// check if the request have an error code
+		if($error > 0) return api::state('error', "Failed to process request.", '214', null, 500);
 		
 		$shr = @json_decode($sh, true);
-		if(empty($shr) || !is_array($shr)) return api::state('error', "Failed to process request. Invalid response data.", null, null, 500);
+		if(empty($shr) || !is_array($shr)) return api::state('error', "Failed to process request. Invalid response data.", '223', null, 500);
 		
 		return api::state('ok', "Processed successfully.", null, $shr);
 	}
