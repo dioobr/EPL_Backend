@@ -16,7 +16,7 @@ This code was tested with PHP 8.1, PHP-FPM and NGINX 1.23. The only PHP extensio
 
 You don't need to run composer. Clone or copy the code in a directory and configure your web server to talk with PHP and set your vhost to redirect all requests to index.php file.
 
-Give PHP permissions to read+write+execute inside the "cache" directory.
+Give PHP permissions to read+write inside the "cache" directory.
 
 ### NGINX Configuration
 
