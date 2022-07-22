@@ -63,7 +63,7 @@ server {
 }
 ```
 
-On this configuration, SSL is being used. You need to create a directory called "ssl" on the root directory of the project, and run the following commands to generate a self generated SSL certificate:
+On this configuration, SSL is being used. You need to create a directory called "ssl" in the root directory of the project, and run the following commands to generate a self generated SSL certificate:
 
     openssl genrsa -out api.epl.dioobr.com.local.key 2048
     openssl req -new -sha256 -key api.epl.dioobr.com.local.key -out api.epl.dioobr.com.local.csr
