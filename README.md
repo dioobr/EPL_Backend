@@ -43,13 +43,13 @@ server {
     root /my-backend-directory/public;
     index   index.php;
 
-    error_log /my-backend-directory/ssl/log/error.log;
-    access_log /my-backend-directory/ssl/log/access.log combined;
+    error_log /my-backend-directory/log/error.log;
+    access_log /my-backend-directory/log/access.log combined;
 
     client_max_body_size 4M;
 
     location ~ \.php$ {
-         try_files      $uri =404;
+         try_files     $uri =404;
         fastcgi_pass   127.0.0.1:9000;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
@@ -86,7 +86,7 @@ Here you have the following endpoints:
 Endpoint URL: https://api.epl.dioobr.com/events/past
 
 2. **EPL Teams Badges**:
-Endpoint URL: https://api.epl.dioobr.com/teams/badge/[tiny]/{teamID}.png
+Endpoint URL: https://api.epl.dioobr.com/teams/badge[/tiny]/{teamID}.png
 Example 1: https://api.epl.dioobr.com/teams/badge/133599.png
 Example 2: https://api.epl.dioobr.com/teams/badge/tiny/133599.png
 
